@@ -26,7 +26,6 @@ class TT:
         self.state = state
         self._setup_problem()
         
-
     def _setup_problem(self):
         # Add domain to theory and add basic constraints
         for v in self.variables:
@@ -128,7 +127,6 @@ class TT:
         # Stop lectures spread over less than 4 days
         self.distributeLectures(self.variables, self.labs)
         
-
     def distributeLectures(self, variables, labvariables):
         for var, lab in zip(variables, labvariables):
             lectures = var + lab
@@ -171,8 +169,7 @@ class TT:
         if (p1[1], p2[1]) in pairs:
             return True
         return False
-
-        
+  
     def clash_avoidance(self, p1, p2):
         return p1[0] != p2[0] or p1[1] != p2[1]
         
@@ -185,14 +182,6 @@ class TT:
     def r_solution(self):
         return self.problem.getSolution()
     
-    def r_solutions(self, N=5):
-        solutions = []
-        for sol in self.problem.getSolutionIter():
-            solutions.append(sol)
-            if len(solutions) >= N:
-                break
-        return solutions
-
 #  Various factors for domain
 days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']
 slots = ['S1', 'S2', 'S3', 'S4', 'S5', 'S6']
@@ -356,8 +345,7 @@ class ScheduleApp(QWidget):
         list.reverse(self.domain)
         self.domainL = [(day, slot, room) for day in days for slot in slots for room in roomsL]
         list.reverse(self.domainL)
-
-    
+   
     def generate_random_domains(self):
         domain, domainL = self.domain.copy(), self.domainL.copy()
         if self.enable_randomization:
@@ -424,7 +412,6 @@ class ScheduleApp(QWidget):
         msg.exec_()                                   # show the message box
         self.save_button.setEnabled(True)
 
-
     def toggle_randomization_controls(self, state):
         enabled = (state == Qt.Checked)
 
@@ -473,7 +460,6 @@ class ScheduleApp(QWidget):
         for i in range(self.schedule_table.rowCount()):
             self.schedule_table.setRowHeight(i, 155)  # Adjust the row height as needed
 
-
     def get_col_widths_by_longest_line(self, dataframe):
         """
         For each column (and the index), compute the width based on the longest single
@@ -499,7 +485,6 @@ class ScheduleApp(QWidget):
             col_widths.append(maxw)
 
         return [idx_longest] + col_widths
-
     
     def save_solutions_to_excel(self):
         if not hasattr(self, "all_solutions") or not self.all_solutions:
@@ -559,7 +544,6 @@ class ScheduleApp(QWidget):
                     for col_idx, width in enumerate(col_widths):
                         # small padding to avoid truncation
                         worksheet.set_column(col_idx, col_idx, width + 2, base_format)
-
 
             QMessageBox.information(self, "Saved", f"All solutions saved to {filename}")
 
